@@ -1,0 +1,25 @@
+
+    
+server: 
+  port: 5001
+   
+---
+  
+spring:  
+  profiles: dev
+  data:
+    mongodb:
+     host: ${MONGO_HOST}
+     port: ${MONGO_PORT}
+     database: ${MONGO_DB_NAME}
+     
+---
+  
+spring:  
+  profiles: prod
+  data:
+    mongodb:
+     uri: ${MONGO_DB_URI}
+     database: ${MONGO_DB_NAME}  
+     
+ 

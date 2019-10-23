@@ -15,7 +15,7 @@ services:
   ui:
     build:
       context: ./message-viewer
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     volumes:
       - /user/app/node_modules
       - ./message-viewer/:/usr/app

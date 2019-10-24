@@ -6,14 +6,8 @@
             "image": "usamamali/message-api",
             "hostname": "api",
             "essential": false,
-            "memory": 128,
-            "memoryReservation": 128,
-            "portMappings": [
-                {
-                    "hostPort": 5001,
-                    "containerPort": 5001
-                }
-            ]
+            "memory": 256,
+            "memoryReservation": 256
         },
         {
             "name": "ui",

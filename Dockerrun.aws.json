@@ -13,7 +13,7 @@
                     "hostPort": 5001,
                     "containerPort": 5001
                 }
-            ],
+            ]
         },
         {
             "name": "ui",

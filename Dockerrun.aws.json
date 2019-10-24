@@ -12,7 +12,7 @@
         {
             "name": "api",
             "image": "usamamali/message-api",
-            "hostname": "api",
+            "hostname": "message-api",
             "essential": false,
             "memory": 128,
             "memoryReservation": 128

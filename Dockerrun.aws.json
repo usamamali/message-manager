@@ -1,0 +1,39 @@
+{
+    "AWSEBDockerrunVersion": 2,
+    "containerDefinitions": [
+        {
+            "name": "ui",
+            "image": "usamamali/message-ui",
+            "hostname": "ui",
+            "essential": false,
+            "memory": 128,
+            "memoryReservation": 128
+        },
+        {
+            "name": "api",
+            "image": "usamamali/message-api",
+            "hostname": "api",
+            "essential": false,
+            "memory": 128,
+            "memoryReservation": 128
+        },
+        {
+            "name": "proxy",
+            "image": "usamamali/message-proxy",
+            "hostname": "proxy",
+            "essential": true,
+            "portMappings": [
+                {
+                    "hostPort": 80,
+                    "containerPort": 80
+                }
+            ],
+            "links": [
+                "ui",
+                "api"
+            ],
+            "memory": 128,
+            "memoryReservation": 128
+        }
+    ]
+}

@@ -2,17 +2,20 @@
     "AWSEBDockerrunVersion": 2,
     "containerDefinitions": [
         {
-            "name": "message-ui",
+            "name": "ui",
             "image": "usamamali/message-ui",
-            "hostname": "message-ui",
+            "hostname": "ui",
             "essential": false,
             "memory": 128,
-            "memoryReservation": 128
+            "memoryReservation": 128,
+            "links": [
+                "api"
+            ]
         },
         {
-            "name": "message-api",
+            "name": "api",
             "image": "usamamali/message-api",
-            "hostname": "message-api",
+            "hostname": "api",
             "essential": false,
             "memory": 128,
             "memoryReservation": 128
@@ -29,8 +32,8 @@
                 }
             ],
             "links": [
-                "message-ui",
-                "message-api"
+                "ui",
+                "api"
             ],
             "memory": 128,
             "memoryReservation": 128

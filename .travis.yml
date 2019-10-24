@@ -32,6 +32,7 @@ deploy:
   env: "$AWS_APP_ENV"
   bucket_name: "$AWS_S3_BUCKET_NAME"
   #bucket_path: "$AWS_S3_BUCKET_PATH"
+  wait_until_deployed: true
   on:
     branch: master
   access_key_id:

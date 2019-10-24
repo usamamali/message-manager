@@ -30,7 +30,7 @@
             ],
             "links": [
                 "ui",
-                "api"
+                "message-api"
             ],
             "memory": 128,
             "memoryReservation": 128

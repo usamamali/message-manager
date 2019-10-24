@@ -1,0 +1,40 @@
+# tell travis we need sudo priviledges
+sudo: required
+
+services:
+  - docker
+
+before_install:
+  - docker build -t $DOCKER_USERNAME/message-ui-test -f ./message-viewer/Dockerfile.dev ./message-viewer
+  - docker build -t $DOCKER_USERNAME/message-api-test -f ./message-api/Dockerfile.dev ./message-api
+
+script:
+  - docker run -e CI=true $DOCKER_USERNAME/message-ui-test npm run test
+  - docker run $DOCKER_USERNAME/message-api-test mvn test
+
+after_success:
+  - docker build -t $DOCKER_USERNAME/message-ui:$TRAVIS_BUILD_ID -t $DOCKER_USERNAME/message-ui:latest ./message-viewer
+  - docker build -t $DOCKER_USERNAME/message-api:$TRAVIS_BUILD_ID -t $DOCKER_USERNAME/message-api:latest ./message-api
+  - docker build -t $DOCKER_USERNAME/message-proxy:$TRAVIS_BUILD_ID -t $DOCKER_USERNAME/message-proxy:latest ./nginx
+
+  # login to docker hub
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+
+  # push images to docker hub
+  - docker push $DOCKER_USERNAME/message-ui
+  - docker push $DOCKER_USERNAME/message-api
+  - docker push $DOCKER_USERNAME/message-proxy
+
+deploy:
+  provider: elasticbeanstalk
+  region: "$AWS_REGION"
+  app: "$AWS_APP_NAME"
+  env: "$AWS_APP_ENV"
+  bucket_name: "$AWS_S3_BUCKET_NAME"
+  #bucket_path: "$AWS_S3_BUCKET_PATH"
+  on:
+    branch: master
+  access_key_id:
+    secure: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: $AWS_SECRET_KEY
